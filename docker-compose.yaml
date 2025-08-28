@@ -1,0 +1,38 @@
+
+
+services:
+  sitl:
+    build:
+      context: ./sitl
+    container_name: ardupilot-sitl
+    networks:
+      - sitl-net
+    # SITL 内の UDP ポートを外部に公開（必要に応じて）
+    ports:
+      - "14553:14553/udp"  # MAVROS → SITL
+    restart: unless-stopped
+
+  mavros:
+    build:
+      context: ./mavros
+    container_name: mavros
+    environment:
+      # SITL コンテナに接続するための設定
+      FCU_IP: tcp://ardupilot-sitl:5760
+      # 外部 GCS の IP アドレス（QGroundControl を実行している PC）
+      GCS_IP: 192.168.11.47
+    networks:
+      - sitl-net
+    # MAVROS が外部 GCS と通信する UDP ポートを公開
+    ports:
+      - "14550:14550/udp"  # MAVROS → 外部 GCS
+      - "14551:14551/udp"  # MAVROS ←　外部 GCS
+      - "14552:14552/udp"  # SITL → MAVROS
+    depends_on:
+      - sitl
+    restart: unless-stopped
+
+# 既存ネットワークを参照
+networks:
+  sitl-net:
+    external: true
