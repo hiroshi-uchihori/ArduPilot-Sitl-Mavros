@@ -40,6 +40,8 @@ ENV PATH="/ardupilot/Tools/autotest:${PATH}"
 # SITL ビルド（Docker build 時に実行）
 RUN ./waf configure --board sitl && ./waf build
 
+COPY locations.txt /ardupilot/Tools/autotest/locations.txt
+
 # 起動スクリプトをコピー
 COPY start_sitl.sh /start_sitl.sh
 RUN chmod +x /start_sitl.sh

@@ -12,10 +12,11 @@ RUN apt-get update && apt-get install -y \
 RUN geographiclib-get-geoids egm96-5 && \
     geographiclib-get-gravity egm96
 
-RUN apt-get update && apt-get install -y \
-    ros-humble-rmw-cyclonedds-cpp \
-    && rm -rf /var/lib/apt/lists/*
-
+#RUN apt-get update && apt-get install -y \
+#    ros-humble-rmw-cyclonedds-cpp \
+#    && rm -rf /var/lib/apt/lists/*
+#
+#ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 # 環境設定
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 

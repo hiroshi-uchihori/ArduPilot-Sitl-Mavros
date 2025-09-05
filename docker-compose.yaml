@@ -20,7 +20,7 @@ services:
       # SITL コンテナに接続するための設定
       FCU_IP: tcp://ardupilot-sitl:5760
       # 外部 GCS の IP アドレス（QGroundControl を実行している PC）
-      GCS_IP: 192.168.11.47
+      GCS_IP: 192.168.1.13
     networks:
       - sitl-net
     # MAVROS が外部 GCS と通信する UDP ポートを公開
