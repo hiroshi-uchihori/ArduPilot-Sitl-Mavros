@@ -4,6 +4,7 @@ services:
   sitl:
     build:
       context: ./sitl
+    image: numech/sitl:latest 
     container_name: ardupilot-sitl
     networks:
       - sitl-net
@@ -15,6 +16,7 @@ services:
   mavros:
     build:
       context: ./mavros
+    image: numech/mavros:latest 
     container_name: mavros
     environment:
       # SITL コンテナに接続するための設定
