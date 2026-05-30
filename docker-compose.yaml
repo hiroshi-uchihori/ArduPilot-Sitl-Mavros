@@ -1,11 +1,23 @@
 
 
 services:
+
+  gazebo:
+    image: numech/gazeboh:latest
+    container_name: gazebo
+    network_mode: host
+    environment:
+    - GZ_IP=127.0.0.1
+    - GZ_PARTITION=default
+    restart: unless-stopped
+
   sitl:
     build:
       context: ./sitl
     image: numech/sitl:latest 
     container_name: ardupilot-sitl
+    depends_on:
+      - gazebo
     network_mode: host
     #networks:
     #  - sitl-net
@@ -19,6 +31,8 @@ services:
       context: ./mavros
     image: numech/mavros:latest 
     container_name: mavros
+    depends_on:
+      - sitl
     environment:
       # SITL コンテナに接続するための設定
       FCU_IP: tcp://127.0.0.1:5760
@@ -33,8 +47,6 @@ services:
     #  - "14550:14550/udp"  # MAVROS → 外部 GCS
     #  - "14551:14551/udp"  # MAVROS ←　外部 GCS
     #  - "14552:14552/udp"  # SITL → MAVROS
-    depends_on:
-      - sitl
     restart: unless-stopped
 
 # 既存ネットワークを参照

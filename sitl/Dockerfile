@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
     automake \
     pkg-config \
     nano \
+    iproute2 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Python モジュール（MAVProxy と extras）
