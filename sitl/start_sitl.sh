@@ -9,8 +9,7 @@ cd /ardupilot
 
 # SITL 起動（MAVProxyなし、sim_vehicle.sh互換モード）
 sim_vehicle.py -L Ioujima \
-  -v Rover \
-  -f Boat \
+  -v Rover  \
   --no-rebuild "$@" \
   -C --no-mavproxy \
   --out=udp:mavros:14553 
